@@ -5,7 +5,6 @@ import (
 	"errors"
 	"sort"
 
-	"github.com/everFinance/goar"
 	"github.com/syndtr/goleveldb/leveldb"
 	dbm "github.com/tendermint/tm-db"
 )
@@ -55,10 +54,11 @@ func NewArweaveDB(indexDBFullPath string, arweaveNodeURL string) (*ArweaveDB, er
 	if err != nil {
 		return nil, err
 	}
-	arweaveClient := goar.NewClient(arweaveNodeURL)
+	// arweaveClient := goar.NewClient(arweaveNodeURL)
 	return &ArweaveDB{
 		txDataByIdGetter: func(txId []byte) ([]byte, error) {
-			return arweaveClient.DownloadChunkData(string(txId))
+			return []byte{}, nil
+			// return arweaveClient.DownloadChunkData(string(txId))
 		},
 		versionTxIdGetter: func(version []byte) ([]byte, error) {
 			return indexDB.Get(version, nil)
