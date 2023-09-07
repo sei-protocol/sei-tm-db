@@ -137,6 +137,11 @@ func (db *ArweaveDB) NewBatch() dbm.Batch {
 	panic("Arweave backend is read-only")
 }
 
+// NewBatchWithSize implements DB.
+func (db *ArweaveDB) NewBatchWithSize(size int) dbm.Batch {
+	panic("Arweave backend is read-only")
+}
+
 // Iterator implements DB.
 func (db *ArweaveDB) Iterator(start, end []byte) (dbm.Iterator, error) {
 	return newArweaveDBIterator(start, end, db, false)
@@ -199,6 +204,11 @@ func (db *ArweaveDB) getIndex(version []byte) ([]byte, error) {
 		return nil, err
 	}
 	return db.txDataByIdGetter(indexTxId)
+}
+
+// GetByteSize implements Batch
+func (db *ArweaveDB) GetByteSize() (int, error) {
+	return 0, nil
 }
 
 // TODO: change to binary search
